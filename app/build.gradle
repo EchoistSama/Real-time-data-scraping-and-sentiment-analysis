@@ -1,0 +1,74 @@
+plugins {
+    alias(libs.plugins.androidApplication)
+    id 'com.chaquo.python'
+}
+
+android {
+    namespace 'com.example.senttrial'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.example.senttrial"
+        minSdk 21
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+        }
+        python {
+            version "3.11"
+        }
+        python {
+            buildPython "C:/Users/admin/AppData/Local/Programs/Python/Python311/python.exe"
+        }
+        python {
+            pip {
+                // A requirement specifier, with or without a version number:
+                install "numpy"
+                install "pandas"
+                install "requests"
+                install "regex"
+                install "nltk"
+            }
+        }
+
+    }
+    sourceSets {
+        main {
+            assets {
+                srcDirs 'src\\main\\assets'
+            }
+            python.srcDir "src/main/python"
+        }
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+
+    implementation libs.appcompat
+    implementation libs.material
+    implementation libs.activity
+    implementation libs.constraintlayout
+    testImplementation libs.junit
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
+    implementation 'org.apache.directory.studio:org.apache.commons.io:2.4'
+    implementation 'androidx.appcompat:appcompat:1.3.1' // Example for AppCompat, adjust as needed
+    implementation 'com.google.android.material:material:1.4.0' // Example for Material Components, adjust as needed
+
+}
